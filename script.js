@@ -10,6 +10,8 @@ snake[0] = {
   y: 8 * box,
 };
 
+let direction = 'right';
+
 function createBackground() {
   context.fillStyle = 'lightgreen';
   context.fillRect(0, 0, 16 * box, 16 * box);
@@ -22,6 +24,38 @@ function createSnake() {
   }
 }
 
-createBackground();
+function startGame() {
+  createBackground();
 
-createSnake();
+  createSnake();
+
+  let positionX = snake[0].x;
+  let positionY = snake[0].y;
+
+  switch (direction) {
+    case 'right':
+      positionX += box;
+      break;
+    case 'left':
+      positionX -= box;
+      break;
+    case 'up':
+      positionY -= box;
+      break;
+    case 'down':
+      positionY += box;
+      break;
+    default:
+  }
+
+  snake.pop();
+
+  let newSnakeDimensions = {
+    x: positionX,
+    y: positionY,
+  };
+
+  snake.unshift(newSnakeDimensions);
+}
+
+let game = setInterval(startGame, 100);
